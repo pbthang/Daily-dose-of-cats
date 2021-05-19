@@ -90,3 +90,14 @@ footer {
 #spinner.show {
   visibility: visible;
 }
+
+@media screen and (max-width: 600px) {
+  .cat-img {
+    height: auto;
+    width: 90vw;
+  }
+
+  .cat-fact {
+    font-size: 1rem;
+  }
+}
