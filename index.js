@@ -6,17 +6,32 @@ const renderCatImg = (link) => {
   document.querySelector(".cat-img").src = link;
 };
 
+const spinner = document.getElementById("spinner");
+
+function showSpinner() {
+  spinner.className = "show";
+  //   setTimeout(() => {
+  //     spinner.className = spinner.className.replace("show", "");
+  //   }, 5000);
+}
+
+function hideSpinner() {
+  spinner.className = spinner.className.replace("show", "");
+}
+
 const fetchContent = () => {
-  fetch("https://thatcopy.pw/catapi/rest/")
+  document.querySelector("audio").play();
+  renderCatImg("#");
+  showSpinner();
+  fetch("https://api.thecatapi.com/v1/images/search")
     .then((res) => res.json())
     .then((res) => {
-      renderCatImg(res.url);
-    })
-    .then((res) =>
-      fetch("https://catfact.ninja/fact")
-        .then((res) => res.json())
-        .then((res) => renderCatFact(res.fact))
-    );
+      hideSpinner();
+      renderCatImg(res[0].url);
+    });
+  fetch("https://catfact.ninja/fact")
+    .then((res) => res.json())
+    .then((res) => renderCatFact(res.fact));
 };
 
 document.querySelector(".fetch").addEventListener("click", fetchContent);
